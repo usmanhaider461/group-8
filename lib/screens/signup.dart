@@ -14,6 +14,49 @@ class SignUp extends StatelessWidget {
   final TextEditingController address = TextEditingController();
   final TextEditingController password = TextEditingController();
 
+  static String p =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  static RegExp regExp = new RegExp(p);
+  void validation() {
+    if (email.text.isEmpty && password.text.isEmpty && address.text.isEmpty && fullName.text.isEmpty && phoneNumber.text.isEmpty) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Both Fields are Empty"),
+      ));
+    } else if (email.text.isEmpty) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Email is Empty"),
+      ));
+    }else if (fullName.text.isEmpty) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Email is Empty"),
+      ));
+    } else if (phoneNumber.text.isEmpty) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Email is Empty"),
+      ));
+    }else if (address.text.isEmpty) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Email is Empty"),
+      ));
+    }
+    if (!regExp.hasMatch(email.text)) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Email is not correct"),
+      ));
+    } else if (password.text.isEmpty) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Password is Empty"),
+      ));
+    } else if (password.text.length < 8) {
+      scaffold.currentState.showSnackBar(SnackBar(
+        content: Text("Password is too short"),
+      ));
+    }
+  }
+
+  final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
