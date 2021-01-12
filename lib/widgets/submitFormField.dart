@@ -10,6 +10,7 @@ class SubmitFormField extends StatelessWidget {
     return Container(
       width: 400.0,
       height: 40,
+      alignment: Alignment.centerLeft,
       child: RaisedButton(
 
         shape: RoundedRectangleBorder(

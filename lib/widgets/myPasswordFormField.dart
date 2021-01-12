@@ -17,6 +17,8 @@ class _MyPasswordFormFieldState extends State<MyPasswordFormField> {
     return Container(
       margin: EdgeInsets.only(top: 10.0),
       height: 40,
+      alignment: Alignment.centerLeft,
+
       child: TextFormField(
         controller: widget.controller,
         obscureText: obscureText,
@@ -32,7 +34,7 @@ class _MyPasswordFormFieldState extends State<MyPasswordFormField> {
           hintText: widget.title,
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(5.0),
           ),
         ),
       ),

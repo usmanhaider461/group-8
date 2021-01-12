@@ -9,6 +9,8 @@ class MyTextFormField extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 10.0),
       height: 40.0,
+      width: double.infinity,
+      alignment: Alignment.centerLeft,
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
