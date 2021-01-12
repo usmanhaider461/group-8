@@ -1,44 +1,160 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:group_8/screens/homepage.dart';
 import 'package:group_8/screens/signup.dart';
-import 'package:group_8/widgets/haveAccountOrNot.dart';
-import 'package:group_8/widgets/myPasswordFormField.dart';
-import 'package:group_8/widgets/myTextFormField.dart';
+import 'package:group_8/widgets/haveaccountornot.dart';
 import 'package:group_8/widgets/submitFormField.dart';
+import 'package:group_8/widgets/myPasswordFormField.dart';
+import 'package:group_8/widgets/mytextformfield.dart';
 import 'package:group_8/widgets/toptitle.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController email = TextEditingController();
+  final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
+
+  bool isLoading = false;
+  UserCredential authResult;
+  void submit() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      authResult = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => HomePage(),
+        ),
+      );
+    } on PlatformException catch (e) {
+      String message = "Please Check Internet";
+      if (e.message != null) {
+        message = e.message.toString();
+      }
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text(message.toString()),
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   static String p =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   static RegExp regExp = new RegExp(p);
-  void validation() {
+  void vaildation() {
     if (email.text.isEmpty && password.text.isEmpty) {
-      scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Both Fields are Empty"),
-      ));
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Both Fleid Is Empty"),
+        ),
+      );
     } else if (email.text.isEmpty) {
-      scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Email is Empty"),
-      ));
-    }
-    if (!regExp.hasMatch(email.text)) {
-      scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Email is not correct"),
-      ));
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Email Is Empty"),
+        ),
+      );
+    } else if (!regExp.hasMatch(email.text)) {
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Email Is Not Vaild"),
+        ),
+      );
     } else if (password.text.isEmpty) {
-      scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Password is Empty"),
-      ));
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Password Is Empty"),
+        ),
+      );
     } else if (password.text.length < 8) {
-      scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Password is too short"),
-      ));
+      scaffold.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Password Is Too Short"),
+        ),
+      );
+    } else {
+      submit();
     }
   }
 
+
   final TextEditingController password = TextEditingController();
-  final GlobalKey<ScaffoldState> scaffold = GlobalKey<ScaffoldState>();
+
+  Widget _buildAllTextFormFiledPlace() {
+    return Center(
+      child: Container(
+        height: 300,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyTextFormField(
+              title: "Email",
+              controller: email,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            MyPasswordFormField(
+              controller: password,
+              title: "Password",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButtonPart() {
+    return isLoading == false
+        ? SubmitFormField(
+      name: "Login",
+      onPressed: () {
+        vaildation();
+      },
+    )
+        : Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildHaveAccountNotPart() {
+    return HaveAccountOrNot(
+      subTitle: "Sign Up",
+      title: "I Don't Have An Account?",
+      onTap: () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (ctx) => SignUp(),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,44 +164,19 @@ class Login extends StatelessWidget {
       backgroundColor: Color(0xfff8f8f8),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric( horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                  child: Image.asset(
-                'assets/logo-dark.png',
-                height: 100,
-                width: 100,
-              ),
-              ),
               TopTitle(
-                subTitle: "Welcome Back",
-                title: "Sign In",
+                subTitle: "Welcome Back!",
+                title: "Login",
               ),
-              Center(
-                child: Container(
-                  height: 170,
-                  width: 400,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MyTextFormField(title: "Email", controller: email),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      MyPasswordFormField(title: "password", controller: password,)
-                    ],
-                  ),
-                ),
-              ),
-              SubmitFormField(name: 'Sign In', onPressed: () => validation()),
+              _buildAllTextFormFiledPlace(),
+              _buildButtonPart(),
               SizedBox(
-                height: 15.0,
+                height: 10,
               ),
-              HaveAccountOrNot(onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=> SignUp(),),);
-              },subTitle: 'SignUp', title: 'Don\'t have an account?')
+              _buildHaveAccountNotPart(),
             ],
           ),
         ),
