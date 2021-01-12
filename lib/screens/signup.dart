@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:group_8/widgets/haveAccountOrNot.dart';
 import 'package:group_8/widgets/myPasswordFormField.dart';
 import 'package:group_8/widgets/myTextFormField.dart';
+import 'package:group_8/widgets/submitFormField.dart';
 import 'package:group_8/widgets/toptitle.dart';
+import 'package:group_8/widgets/gender.dart';
 
 class SignUp extends StatelessWidget {
   final TextEditingController email = TextEditingController();
@@ -50,11 +53,16 @@ class SignUp extends StatelessWidget {
                         controller: address,
                         title: 'Address',
                       ),
-
+                      Gender(),
                       MyPasswordFormField(
                         controller: password,
                         title: 'Password',
                       ),
+                      SubmitFormField(name: "Sign Up", onPressed: (){},),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      HaveAccountOrNot(title: "I have already an account.",subTitle: "Sign In",)
                     ],
                   ),
                 )

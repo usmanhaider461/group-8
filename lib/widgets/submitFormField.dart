@@ -8,16 +8,15 @@ class SubmitFormField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      width: 400.0,
+      width: double.infinity,
       height: 40,
-      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: 10),
       child: RaisedButton(
-
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0)),
         color: Theme.of(context).primaryColor,
         child: Text(
-          "Login",
+          name,
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
         onPressed: onPressed,
