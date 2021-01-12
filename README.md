@@ -17,5 +17,7 @@
 ----------------------------------------
 Mess Management System is a Final Project for Mobile Application Development
 We have build this project using flutter technology.
+## Screen Demo
+![Mess Management App](https://github.com/usmanhaider461/group-8/blob/master/screen.gif)
 Regards
 Group-8 Members
