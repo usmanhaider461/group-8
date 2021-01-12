@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 class HaveAccountOrNot extends StatelessWidget {
   final String title, subTitle;
-  HaveAccountOrNot({this.title, this.subTitle});
+  final Function onTap;
+  HaveAccountOrNot({this.onTap, this.title, this.subTitle});
   @override
   Widget build(BuildContext context) {
 
@@ -13,9 +14,12 @@ class HaveAccountOrNot extends StatelessWidget {
         SizedBox(
           width: 10.0,
         ),
-        Text(
-          subTitle,
-          style: TextStyle(color: Theme.of(context).primaryColor),
+        GestureDetector(
+          onTap: onTap,
+          child: Text(
+            subTitle,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
         ),
       ],
     );

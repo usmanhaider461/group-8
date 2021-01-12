@@ -6,6 +6,7 @@ import 'package:group_8/widgets/myTextFormField.dart';
 import 'package:group_8/widgets/submitFormField.dart';
 import 'package:group_8/widgets/toptitle.dart';
 import 'package:group_8/widgets/gender.dart';
+import 'login.dart';
 
 class SignUp extends StatelessWidget {
   final TextEditingController email = TextEditingController();
@@ -28,15 +29,15 @@ class SignUp extends StatelessWidget {
       ));
     }else if (fullName.text.isEmpty) {
       scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Email is Empty"),
+        content: Text("Name is Empty"),
       ));
     } else if (phoneNumber.text.isEmpty) {
       scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Email is Empty"),
+        content: Text("Phone Number is Empty"),
       ));
     }else if (address.text.isEmpty) {
       scaffold.currentState.showSnackBar(SnackBar(
-        content: Text("Email is Empty"),
+        content: Text("Address is Empty"),
       ));
     }
     if (!regExp.hasMatch(email.text)) {
@@ -60,6 +61,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffold,
         body: Container(
             padding: EdgeInsets.symmetric( horizontal: 30),
             child: Column(
@@ -101,11 +103,15 @@ class SignUp extends StatelessWidget {
                         controller: password,
                         title: 'Password',
                       ),
-                      SubmitFormField(name: "Sign Up", onPressed: (){},),
+                      SubmitFormField(name: "Sign Up", onPressed: (){
+                        validation();
+                      },),
                       SizedBox(
                         height: 10,
                       ),
-                      HaveAccountOrNot(title: "I have already an account.",subTitle: "Sign In",)
+                      HaveAccountOrNot(onTap: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=> Login(),),);
+                      },title: "I have already an account.",subTitle: "Sign In",)
                     ],
                   ),
                 )

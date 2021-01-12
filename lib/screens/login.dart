@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:group_8/screens/signup.dart';
 import 'package:group_8/widgets/haveAccountOrNot.dart';
 import 'package:group_8/widgets/myPasswordFormField.dart';
 import 'package:group_8/widgets/myTextFormField.dart';
@@ -82,7 +83,9 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: 15.0,
               ),
-              HaveAccountOrNot(subTitle: 'SignUp', title: 'Don\'t have an account?')
+              HaveAccountOrNot(onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=> SignUp(),),);
+              },subTitle: 'SignUp', title: 'Don\'t have an account?')
             ],
           ),
         ),
