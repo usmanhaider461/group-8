@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.amberAccent,
+        primaryColor: Color(0xffFFC737),
       ),
       home: Login(),
     );
