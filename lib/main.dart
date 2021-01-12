@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:group_8/screens/homepage.dart';
+import 'package:group_8/screens/detail_screen.dart';
 import 'package:group_8/screens/login.dart';
-import 'package:group_8/screens/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xffFFC737),
+        snackBarTheme: SnackBarThemeData(
+          actionTextColor: Colors.white,
+          backgroundColor: Colors.pinkAccent,
+        ),
+        primaryColor: Color(0xffffc737),
+        accentColor: Color(0xffff4ee),
       ),
-      home: SignUp(),
+      // home: StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData) {
+      //       return HomePage();
+      //     } else {
+      //       return Login();
+      //     }
+      //   },
+      // ),
+      home: Login(),
     );
   }
 }
-
