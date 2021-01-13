@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:group_8/screens/detail_screen.dart';
-import 'package:group_8/screens/login.dart';
+import 'package:group_8/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
       //     }
       //   },
       // ),
-      home: Login(),
+      home: SplashScreen(),
     );
   }
 }

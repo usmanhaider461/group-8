@@ -101,13 +101,12 @@ class _LoginState extends State<Login> {
     }
   }
 
-
   final TextEditingController password = TextEditingController();
 
   Widget _buildAllTextFormFiledPlace() {
     return Center(
       child: Container(
-        height: 300,
+        height: 150,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -132,14 +131,14 @@ class _LoginState extends State<Login> {
   Widget _buildButtonPart() {
     return isLoading == false
         ? SubmitFormField(
-      name: "Login",
-      onPressed: () {
-        vaildation();
-      },
-    )
+            name: "Login",
+            onPressed: () {
+              vaildation();
+            },
+          )
         : Center(
-      child: CircularProgressIndicator(),
-    );
+            child: CircularProgressIndicator(),
+          );
   }
 
   Widget _buildHaveAccountNotPart() {
@@ -167,6 +166,13 @@ class _LoginState extends State<Login> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
+              Container(
+                child: Image.asset(
+                  'assets/logo-dark.png',
+                  height: 100,
+                  width: 100,
+                ),
+              ),
               TopTitle(
                 subTitle: "Welcome Back!",
                 title: "Login",
